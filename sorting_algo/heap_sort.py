@@ -1,7 +1,7 @@
 from random import randint
 from data_str.heap import bin_heap
 
-N = [randint(0,100) for _ in range(10000)]
+N = [randint(0,100) for _ in range(10)]
 
 def heap_sort(N):
     m = len(N)
@@ -11,8 +11,6 @@ def heap_sort(N):
         arr2.append(arr.pop(0))
         m -= 1
     return arr2
-
-
 
 print(N)
 print(heap_sort(N))

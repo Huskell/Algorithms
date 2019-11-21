@@ -7,10 +7,18 @@ def fib(n):
     i = 0
     if n <=1:
         return 1
-    while i <= n:
+    while i <= n-1:
         a, b = a + b, a
         i += 1
-
     return a
 
-print(fib(5))
+def fib_list(n):
+
+    f = [0, 1]
+    for i in range(2, n+1):
+        f.append(f[i-1]+f[i-2])
+    return f
+
+
+print(fib(8))
+print(fib_list(8))

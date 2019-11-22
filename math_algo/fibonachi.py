@@ -1,6 +1,8 @@
 import numpy as np
 from numpy import linalg
 
+
+
 def fib(n):
     assert n >=0, 'Требуется положительное число n'
 

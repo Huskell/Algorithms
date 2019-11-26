@@ -33,17 +33,24 @@ def bfs(v, m):
 
 print(bfs(0,7))
 
-def bfs_with_dist(start, g):
+def bfs_with_dist(start, g, end):
     distances = [None] * len(G)
     distances[start] = 0
     q = deque([start])
+    parents = [None] * len(G)
     while q:
         cur_v = q.popleft()
         for i in G[cur_v]:
             if distances[i] is None:
                 distances[i] = distances[cur_v] + 1
+                parents[i] = cur_v
                 q.append(i)
-    return distances
+    path = [end]
+    parent = parents[end]
+    while not parent is None:
+        path.append(parent)
+        parent = parents[parent]
+    return distances, parents, path
 
 print('-----------------')
-print(bfs_with_dist(0,G))
+print(bfs_with_dist(0, G, 5))

@@ -18,14 +18,12 @@ def bfs(v, m):
     search_q = deque()  # двух сторонняя очередь
     search_q += G.get(v) #добавляем стартовую точку
     searched = [] # список для фиксации посещенных
-    d, p = {}, {} # массив длинн, массив предков
     while search_q: # пока не пусто
         point = search_q.popleft()
         print('piont = ', point)
         if not point in searched: # проверка на посещенность
             if point == m:
                 return True
-                # print_way(m)
             else:
                 search_q += G.get(point)
                 searched.append(point)
@@ -33,8 +31,19 @@ def bfs(v, m):
 
     return False
 
-def print_way():
-    pass # TODO сделать восстановление кратчайшего пути
-
-
 print(bfs(0,7))
+
+def bfs_with_dist(start, g):
+    distances = [None] * len(G)
+    distances[start] = 0
+    q = deque([start])
+    while q:
+        cur_v = q.popleft()
+        for i in G[cur_v]:
+            if distances[i] is None:
+                distances[i] = distances[cur_v] + 1
+                q.append(i)
+    return distances
+
+print('-----------------')
+print(bfs_with_dist(0,G))

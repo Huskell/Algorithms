@@ -27,3 +27,21 @@ def dfs(v):
 
 print(dfs(s))
 print(visited)
+
+#---------------------------------------------------------------------------
+def dfs2(vertex, graph, used):
+    # used = used or set() #питон умеет так))))
+    used.add(vertex)
+
+    for neighbour in graph[vertex]:
+        if neighbour not in used:
+            dfs(neighbour, graph, used)
+
+used = {}
+N = 0
+for vertex in G:
+    if vertex not in used:
+        dfs(vertex, G, used)
+        N += 1 # подсчет компонени связности
+
+print(N)

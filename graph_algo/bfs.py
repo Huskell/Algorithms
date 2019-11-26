@@ -16,17 +16,16 @@ print(n)
 # и какой путь короче(для невзвешенных графов)
 def bfs(v, m):
     search_q = deque()  # двух сторонняя очередь
-    print('очередь до: ',search_q)
     search_q += G.get(v) #добавляем стартовую точку
-    print('очередь после: ',search_q)
     searched = [] # список для фиксации посещенных
-    print('searched = ',searched)
-    while search_q:
+    d, p = {}, {} # массив длинн, массив предков
+    while search_q: # пока не пусто
         point = search_q.popleft()
         print('piont = ', point)
-        if not point in searched:
+        if not point in searched: # проверка на посещенность
             if point == m:
                 return True
+                # print_way(m)
             else:
                 search_q += G.get(point)
                 searched.append(point)
@@ -34,4 +33,8 @@ def bfs(v, m):
 
     return False
 
-print(bfs(0,5))
+def print_way():
+    pass # TODO сделать восстановление кратчайшего пути
+
+
+print(bfs(0,7))

@@ -29,7 +29,7 @@ def add_edge(G, a, b, weight):
     else:
         G[a][b] = weight
 
-def dajkstra(G, start):
+def dijkstra(G, start):
     q = deque()
     s = {}
     s[start] = 0
@@ -39,6 +39,9 @@ def dajkstra(G, start):
         for u in G[v]:
             if (u not in s) or s[v] + G[v][u] < s[u]:
                 s[u] = s[v] + G[v][u]
+                q.append(u)
+    return s
+
 
 
 

@@ -9,6 +9,9 @@ class bin_heap:
         largest = i
         l = 2*i + 1
         r = 2*i + 2
+        # print('larg = ', largest, self.heaplist[largest])
+        # print('l = ', l, self.heaplist[l])
+        # print('r = ', r, self.heaplist[r])
         if l < self.heapsize and self.heaplist[l] > self.heaplist[i]:
             largest = l
         if r < self.heapsize and self.heaplist[r] > self.heaplist[largest]:
@@ -21,7 +24,9 @@ class bin_heap:
         self.heaplist = list
         self.heapsize = len(list)
         # Индексы  c середины и до нуля включительно
+        # print(self.heapsize)
         for i in range(len(list) // 2, -1, -1):
+            print(i)
             self.heapify(i)
 
         return self.heaplist

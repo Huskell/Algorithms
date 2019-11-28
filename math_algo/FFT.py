@@ -1,23 +1,18 @@
-from math_algo.FT import FT
-import numpy as np
+from cmath import exp, pi
 
+def fft(x):
+    N = len(x)
+    if N <= 1:
+        return x
 
-def FFT(x):
-    """A recursive implementation of the 1D Cooley-Tukey FFT"""
-    x = np.asarray(x, dtype=float)
-    N = x.shape[0]
+    even = fft(x[0::2])
+    odd = fft(x[1::2])
+    T= [exp(-2j*pi*k/N)*odd[k] for k in range(N//2)]
 
-    if N % 2 > 0:
-        raise ValueError("size of x must be a power of 2")
-    elif N <= 32:  # this cutoff should be optimized
-        return FT(x)
-    else:
-        X_even = FFT(x[::2])
-        X_odd = FFT(x[1::2])
-        factor = np.exp(-2j * np.pi * np.arange(N) / N)
-        return np.concatenate([X_even + factor[:N / 2] * X_odd,
-                               X_even + factor[N / 2:] * X_odd])
+    return [even[k] + T[k] for k in range(N//2)] + \
+           [even[k] - T[k] for k in range(N//2)]
 
-print(FFT([1,2,3,4,5,6,7,8,9,10,11,12,23,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,4]))
+print( ' '.join("%5.3f" % abs(f)
+                for f in fft([1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0])) )
 
 

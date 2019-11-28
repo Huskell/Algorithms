@@ -3,6 +3,7 @@ from collections import deque
 
 def main():
     G = read_graph()
+    print(G)
     start = int(input('start vertex = '))
     while start not in G:
         start = input('start vertex = ')
@@ -14,15 +15,19 @@ def main():
     print(shortest_path)
 
 def read_graph():
-    M = int(input('Сколько ребер в графе?: '))
+    E = int(input('Сколько ребер в графе?: '))
+    V = int(input('Сколько вершин в графе?: '))
     G = {}
     print('Введите ребра: \n')
-    for i in range(M):
+    for i in range(V):
+        G[i] = {}
+    for i in range(E):
         a, b, weight = input().split()
         weight = float(weight)
         a, b = int(a), int(b)
         add_edge(G, a, b, weight)
-        add_edge(G, b, a, weight)
+        # add_edge(G, b, a, weight)
+
     return G
 
 def add_edge(G, a, b, weight):
@@ -36,7 +41,7 @@ def dijkstra(G, start):
     s = {}
     s[start] = 0
     q.append(start)
-    parents = [None] * len(G)
+    parents = [None] * len(G) * 2
     while q:
         v = q.popleft()
         for u in G[v]:
@@ -69,4 +74,13 @@ if __name__ == '__main__':
 3 4 6
 3 5 3
 4 5 1
+'''
+
+''' cyclic graph
+5
+0 1 10
+1 2 20
+2 3 30
+2 4 1
+4 1 1
 '''

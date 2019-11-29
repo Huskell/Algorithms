@@ -3,10 +3,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import use
 
+class window:
+    def __init__(self):
+        self.queue = [0 for _ in range(80)]
 
+    def push(self, element):
+        self.queue.pop(0)
+        self.queue.insert(-1, element)
+
+    def get(self):
+        return self.queue
 
 def FT(arr):
-    size_array = len(N)
+    size_array = len(arr)
     out_arr = []
     out_arr2 = []
     summ = 0
@@ -39,19 +48,19 @@ def inverse_FT(arr):
 
 
 
-m = [i/1000 for i in range(100)]
-Nsin = [np.sin(2*np.pi*50*i) for i in m]
-Ncos = [np.cos(2*np.pi*50*i) for i in m]
-N = [np.cos(i)*random() for i in m]
+m = [i/1 for i in range(100)]
+Nsin = [np.sin(2*np.pi*50 + i) for i in m]
+Ncos = [np.cos(2*np.pi*50 + i) for i in m]
+# N = [np.cos(i)*random() for i in m]
 
 # print(N)
 #print(FT([5, 2, 4, -1]))
 
 # plt.plot(m, N)
-plt.plot(m, N)
+plt.plot(m, Nsin)
 # plt.plot(m, Ncos)
-plt.plot(m, FT(N), '--')
-plt.plot(m,np.fft.fft(N), '--')
+plt.plot(m, FT(Nsin), '--')
+plt.plot(m,np.fft.fft(Nsin), '--')
 # plt.plot(m,'-o')
 use('tkagg')
 plt.show()

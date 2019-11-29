@@ -1,6 +1,17 @@
 import math as m
 import matplotlib.pyplot as plt
 
+class window:
+    def __init__(self):
+        self.queue = [0 for _ in range(64)]
+
+    def push(self, element):
+        self.queue.pop(0)
+        self.queue.append(element)
+
+    def get(self):
+        return self.queue
+
 
 def haar(signal): # раскладываем сигнал сигнал
 
@@ -12,9 +23,9 @@ def haar(signal): # раскладываем сигнал сигнал
         A[j] = []
         D[j] = []
         for i in range(0, N, 2):
-            A[j].append((signal[i]+signal[i + 1])/2)
-            D[j].append((signal[i]-signal[i + 1])/2)
-        N //= 2
+            A[j].append((signal[i] + signal[i + 1])/2)
+            D[j].append((signal[i] - signal[i + 1])/2)
+        N = N >> 1
 
     return A, D
 
@@ -44,35 +55,64 @@ def st(number): # вычисляем степень 2
     return count
 
 def dd(inv):  # вычисляем действующее значение тока
+    win = window()
+    # inv = inv[0]
     direct = 0
-    d = len(inv[0])
-    for i in range(d):
-        direct += (inv[0][i]) ** 2
-    direct /= d
-    direct = direct ** 1 / 2
-    dd = [direct for _ in range(d)]
+    dd = []
+    period = 64
+    d = len(inv)
+    for i in range(len(inv)):
+        win.push(inv[i])
+        for j in range(period):
+            direct += (win.get()[j]) ** 2
+        direct = (direct / period) ** (1 / 2)
+        dd.append(direct)
 
     return dd
 
 def main():
-    d = 256
+    d = 128
     n = [i for i in range(d)]
-    s = [m.sin(2 * m.pi * 50 + i / 10) for i in range(d)]
-    s2 = [2 * m.sin(2 * m.pi * 50 + i / 10) for i in range(d)]
-    s3 = s[:128] + s2[128:]
-    A, D = haar(s3)
+    s = [m.sin((2 * m.pi / 64) * i) for i in range(d)]
+    s2 = [2 * m.sin((2 * m.pi / 64) * i) for i in range(d)]
+    # s2 = [2 * m.sin(2 * m.pi * 50 + i / 10) for i in range(d)]
+    # s3 = s[:128] + s2[128:]
+    A, D = haar(s)
     # print(D)
     for i in range(len(D)):
-        print(D[i])
+        print(A[i])
     inv = inverseHaar(A, D)
-    direct = dd(inv)
+    # direct = dd(inv)
+    direct = dd(s)
 
     # plt.plot(n, s)
     # plt.plot(n, s2)
-    plt.plot(n, s3)
-    plt.plot(n, inv[0])
+    plt.plot(n, s)
+
+    # plt.plot(n, inv[0])
     plt.plot(n, direct)
     plt.show()
 
+    n = [i for i in range(d//2)]
+    plt.plot(n, A[0])
+    plt.show()
+    n = [i for i in range(d//4)]
+    plt.plot(n, A[1])
+    plt.show()
+    n = [i for i in range(d//8)]
+    plt.plot(n, A[2])
+    plt.show()
+    n = [i for i in range(d//16)]
+    plt.plot(n, A[3])
+    plt.show()
+    n = [i for i in range(d//32)]
+    plt.plot(n, A[4])
+    plt.show()
+    n = [i for i in range(d//64)]
+    plt.plot(n, A[5])
+    plt.show()
+    n = [i for i in range(2)]
+    plt.plot(n, A[6])
+    plt.show()
 if __name__ == '__main__':
     main()

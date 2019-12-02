@@ -16,10 +16,7 @@ def simple_bt(arr):
         largest = r
     if largest != i:
         heaplist[i], heaplist[largest] = heaplist[largest], heaplist[i]
-
-
-
-
+        heapify(largest)
 
 print(N)
 print(simple_bt(N))

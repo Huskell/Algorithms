@@ -1,22 +1,22 @@
-from random import randint, choice
+from symbol import yield_arg
 
-N = [i for i in range(10)]
 
-def simple_bt(arr):
+class binery_tree:
 
-    largest = i
-    l = 2*i + 1
-    r = 2*i + 2
-        # print('larg = ', largest, self.heaplist[largest])
-        # print('l = ', l, self.heaplist[l])
-        # print('r = ', r, self.heaplist[r])
-    if l < heapsize and self.heaplist[l] > self.heaplist[i]:
-        largest = l
-    if r < heapsize and heaplist[r] > heaplist[largest]:
-        largest = r
-    if largest != i:
-        heaplist[i], heaplist[largest] = heaplist[largest], heaplist[i]
-        heapify(largest)
+    def __init__(self, rootObj):
+        self.key = rootObj
+        self.rightChild = None
+        self.leftChild = None
 
-print(N)
-print(simple_bt(N))
+
+    def insertRight(self, right):
+        if self.rightChild == None:
+            self.rightChild = binery_tree(right)
+        else:
+            t = binery_tree(right)
+            t.leftChild = self.leftChild
+            self.leftChild = t
+
+    def insertLeft(self, left):
+        if 
+

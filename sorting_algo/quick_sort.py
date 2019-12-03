@@ -1,7 +1,6 @@
 from random import randint, choice
 
-
-N = [randint(0, 100) for i in range(10)]
+# N = [randint(0, 100) for i in range(10)]
 
 def quick_sort(N):
 
@@ -20,6 +19,6 @@ def quick_sort(N):
             mid.append(n)
     return quick_sort(left) + mid + quick_sort(right)
 
-print(N)
-print(quick_sort(N))
+# print(N)
+# print(quick_sort(N))
 

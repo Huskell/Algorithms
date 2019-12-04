@@ -45,18 +45,22 @@ class knn:
             sum += i
         return sum/len(result)
 
-data = datasets.load_iris()
+def main():
+    data = datasets.load_iris()
 
-X = np.array(data["data"])
-y = np.array(data["target"])
-classes = data["target_names"]
+    X = np.array(data["data"])
+    y = np.array(data["target"])
+    classes = data["target_names"]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y)
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
 
-model = knn()
-model.fit(X_train, y_train, classes)
-print('predict : ', model.predict(X_test[0]))
-print(y_test[0])
+    model = knn()
+    model.fit(X_train, y_train, classes)
+    p = model.predict(X_test[3])
+    print('predict : ', p)
+    print(classes[int(round(p))])
+    print(y_test[3])
 
-
-
+if __name__ == '__main__':
+    main()
+# расстояние как оценка модификация
